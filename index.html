@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankUI - Sistema Bancário</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-university"></i>
+            <span>BankUI</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><i class="fas fa-home"></i> Início</li>
+                <li><i class="fas fa-exchange-alt"></i> Transações</li>
+                <li><i class="fas fa-credit-card"></i> Cartões</li>
+                <li><i class="fas fa-chart-line"></i> Investimentos</li>
+                <li><i class="fas fa-cog"></i> Configurações</li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="search" placeholder="Pesquisar...">
+            </div>
+            <div class="header-user">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="/assets/user1.jpg" alt="Usuário" class="user-avatar">
+                    <span id="user-name">Olá, Cliente</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard" id="dashboard">
+            <div class="welcome-banner">
+                <h2>Bem-vindo ao BankUI</h2>
+                <p>Seu banco digital com segurança e praticidade</p>
+            </div>
+
+            <div id="account-creation" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Abrir Nova Conta</h2>
+                </div>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="account-number">Número da conta:</label>
+                        <input type="number" id="account-number" min="1" max="999999999999" maxlength="12" required>
+                        <small class="input-help">Máximo: 12 dígitos</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-holder">Titular da conta:</label>
+                        <input type="text" id="account-holder" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Possui depósito inicial?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="initial-deposit-yes" name="has-initial-deposit" value="yes">
+                            <label for="initial-deposit-yes">Sim</label>
+                            <input type="radio" id="initial-deposit-no" name="has-initial-deposit" value="no" checked>
+                            <label for="initial-deposit-no">Não</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="initial-deposit-container" style="display: none;">
+                        <label for="initial-deposit">Valor do depósito inicial:</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                            <input type="number" id="initial-deposit" min="0" step="0.01">
+                        </div>
+                    </div>
+                    <button id="create-account-btn" class="btn-primary"><i class="fas fa-check"></i> Abrir Conta</button>
+                </div>
+            </div>
+
+            <div id="account-operations" class="sections-container" style="display: none;">
+                <div class="section account-info-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-circle"></i> Sua Conta</h2>
+                    </div>
+                    <!-- Cartão -->
+                    <div class="card account-card">
+                        <div class="card-chip-container">
+                            <div class="card-chip"></div>
+                            <div class="card-brand"><i class="fab fa-cc-visa"></i></div>
+                        </div>
+                        <div class="account-number-display" id="account-number-display">•••• •••• •••• 1234</div>
+                        <div class="card-details">
+                            <div class="card-holder" id="card-holder-name">Nome do Titular</div>
+                            <div class="card-expiry">10/28</div>
+                        </div>
+                        <div id="account-info" class="account-balance">
+                            <div class="balance-label">Saldo Disponível</div>
+                            <div class="balance-amount" id="balance-amount">R$ 0,00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-transactions">
+                        <h3><i class="fas fa-history"></i> Atividade Recente</h3>
+                        <div class="transactions-list" id="transactions-list">
+                            <div class="no-transactions">Nenhuma transação realizada.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="operations-container">
+                    <div class="section operation-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-arrow-circle-up"></i> Depósito</h2>
+                        </div>
+                        <div class="card">
+                            <div class="form-group">
+                                <label for="deposit-amount">Valor do depósito:</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <input type="number" id="deposit-amount" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button id="deposit-btn" class="btn-success"><i class="fas fa-plus"></i> Depositar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="section operation-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-arrow-circle-down"></i> Saque</h2>
+                        </div>
+                        <div class="card">
+                            <div class="form-group">
+                                <label for="withdraw-amount">Valor do saque:</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <input type="number" id="withdraw-amount" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button id="withdraw-btn" class="btn-warning"><i class="fas fa-minus"></i> Sacar</button>
+                            <p class="note"><i class="fas fa-info-circle"></i> Taxa de saque: R$5,00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="new-account-btn" class="btn-secondary"><i class="fas fa-plus"></i> Abrir Nova Conta</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 BankUi - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Confirmação</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-message">
+                Tem certeza que deseja realizar esta operação?
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="modal-cancel">Cancelar</button>
+                <button class="btn-primary" id="modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
